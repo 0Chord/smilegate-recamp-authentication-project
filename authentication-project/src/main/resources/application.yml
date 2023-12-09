@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/recamp?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/recamp?useSSL=false&characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
     username: root
     password: 1q2w3e4r!
   jpa:
