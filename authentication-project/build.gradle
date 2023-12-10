@@ -28,6 +28,10 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'org.springframework', name: 'spring-aop', version: '6.1.1'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.2.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.0'
+	implementation 'net.nurigo:sdk:4.2.7'
 }
 
 tasks.named('bootBuildImage') {

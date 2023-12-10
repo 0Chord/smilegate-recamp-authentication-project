@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/recamp?characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
+    url: jdbc:mysql://172.17.0.3:3306/recamp?characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
     username: root
     password: 1q2w3e4r!
   jpa:
@@ -14,4 +14,3 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
