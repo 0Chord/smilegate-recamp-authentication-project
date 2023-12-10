@@ -8,7 +8,7 @@ public class ValueGenerator {
         throw new IllegalStateException();
     }
 
-    static String messageCertification() {
+    public static String messageCertification() {
         return createCode();
     }
 

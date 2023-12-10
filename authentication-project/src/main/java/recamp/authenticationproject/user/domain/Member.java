@@ -30,7 +30,6 @@ public class Member {
     private LocalDateTime createdAt;
     @Column(name = "suspended_at")
     private LocalDateTime suspendedAt;
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$", message = "비밀번호는 8~16자리수여야 합니다. 영문 소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.")
     private String password;
     @Column(name = "lasted_access_at")
     private LocalDateTime lastedAccessAt;
