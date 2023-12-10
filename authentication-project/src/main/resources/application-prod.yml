@@ -18,3 +18,11 @@ spring:
     redis:
       host: 172.17.0.5
       port: 6379
+
+jwt:
+  token:
+    value: recampauthenticationprivateprojectprod
+    accesstoken:
+      expiration: 43200000
+    refreshtoken:
+      expiration: 1296000000

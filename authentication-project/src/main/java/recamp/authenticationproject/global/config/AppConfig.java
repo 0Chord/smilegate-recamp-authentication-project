@@ -10,11 +10,14 @@ import recamp.authenticationproject.global.repository.PhoneRedisRepository;
 import recamp.authenticationproject.global.repository.PhoneRepository;
 import recamp.authenticationproject.global.repository.impl.PhoneRepositoryImpl;
 import recamp.authenticationproject.global.service.IdentityVerificationService;
+import recamp.authenticationproject.global.service.LoginService;
 import recamp.authenticationproject.global.service.MessageService;
 import recamp.authenticationproject.global.service.PhoneService;
 import recamp.authenticationproject.global.service.impl.IdentityVerificationServiceImpl;
+import recamp.authenticationproject.global.service.impl.LoginServiceImpl;
 import recamp.authenticationproject.global.service.impl.MessageServiceImpl;
 import recamp.authenticationproject.global.service.impl.PhoneServiceImpl;
+import recamp.authenticationproject.global.utility.JwtUtils;
 import recamp.authenticationproject.user.repository.JpaMemberRepository;
 import recamp.authenticationproject.user.repository.MemberRepository;
 import recamp.authenticationproject.user.repository.impl.MemberRepositoryImpl;
@@ -28,6 +31,7 @@ public class AppConfig {
     private final PhoneRedisRepository phoneRedisRepository;
     private final JpaMemberRepository jpaMemberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtUtils jwtUtils;
     @Value("${message.api_key}")
     private String apiKey;
     @Value("${message.api_secret}")
@@ -68,5 +72,10 @@ public class AppConfig {
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository(), bCryptPasswordEncoder);
+    }
+
+    @Bean
+    public LoginService loginService() {
+        return new LoginServiceImpl(bCryptPasswordEncoder, memberService(), jwtUtils);
     }
 }

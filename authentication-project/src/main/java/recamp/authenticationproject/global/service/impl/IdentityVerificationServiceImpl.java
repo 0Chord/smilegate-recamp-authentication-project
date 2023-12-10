@@ -14,9 +14,10 @@ import recamp.authenticationproject.global.utility.ValueGenerator;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class IdentityVerificationServiceImpl implements IdentityVerificationService {
 
-    private static final String message = "잘못된 인증번호입니다. 다시 시도해주세요";
+    private static final String MESSAGE = "잘못된 인증번호입니다. 다시 시도해주세요";
     private final MessageService messageService;
     private final PhoneService phoneService;
 
@@ -32,7 +33,7 @@ public class IdentityVerificationServiceImpl implements IdentityVerificationServ
     public void codeValidation(CodeDto codeDto) {
         Phone phone = phoneService.findById(codeDto.getNumber());
         if (!phone.getToken().equals(codeDto.getCode())) {
-            throw new IllegalCodeException(message);
+            throw new IllegalCodeException(MESSAGE);
         }
     }
 }

@@ -43,5 +43,6 @@ public class Member {
         this.createdAt = LocalDateTime.now();
         this.lastedAccessAt = LocalDateTime.now();
         this.role = role;
+        this.suspendedAt = LocalDateTime.now();
     }
 }

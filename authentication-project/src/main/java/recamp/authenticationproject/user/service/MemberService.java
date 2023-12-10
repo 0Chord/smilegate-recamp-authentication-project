@@ -14,4 +14,6 @@ public interface MemberService {
     Member findById(Long id);
 
     List<Member> findAll();
+
+    Member findMemberByEmail(String email);
 }

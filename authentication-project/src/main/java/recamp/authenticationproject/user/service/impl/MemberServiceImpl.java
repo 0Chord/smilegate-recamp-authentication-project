@@ -50,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findAll();
     }
 
+    @Override
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow();
+    }
+
     private void comparePasswords(String password, String validationPassword) {
         if (!password.equals(validationPassword)) {
             throw new IllegalPasswordException(message);
