@@ -51,4 +51,11 @@ public class Member {
     public void updateLastedAccessAt() {
         this.lastedAccessAt = LocalDateTime.now();
     }
+
+    public String convertRole() {
+        if (role.equals(Role.USER)) {
+            return "ROLE_USER";
+        }
+        return "ROLE_ADMIN";
+    }
 }

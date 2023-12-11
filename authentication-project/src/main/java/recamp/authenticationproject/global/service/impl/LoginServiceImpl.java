@@ -7,9 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import recamp.authenticationproject.global.dto.JwtDto;
 import recamp.authenticationproject.global.dto.LoginDto;
+import recamp.authenticationproject.global.dto.RefreshTokenDto;
 import recamp.authenticationproject.global.exception.IllegalPasswordException;
 import recamp.authenticationproject.global.exception.SuspendedMemberException;
 import recamp.authenticationproject.global.service.LoginService;
+import recamp.authenticationproject.global.service.RefreshTokenService;
 import recamp.authenticationproject.global.utility.JwtUtils;
 import recamp.authenticationproject.user.domain.Member;
 import recamp.authenticationproject.user.service.MemberService;
@@ -23,6 +25,7 @@ public class LoginServiceImpl implements LoginService {
     private final BCryptPasswordEncoder encoder;
     private final MemberService memberService;
     private final JwtUtils jwtUtils;
+    private final RefreshTokenService refreshTokenService;
 
     @Override
     @Transactional
@@ -30,11 +33,17 @@ public class LoginServiceImpl implements LoginService {
         Member member = memberService.findMemberByEmail(loginDto.getEmail());
         isBefore(member);
         comparePassword(loginDto, member);
-        JwtDto jwtDto = JwtDto.make(member.getId(), member.getRole(), member.getPersonalInformation().getName());
+        JwtDto jwtDto = JwtDto.make(member.getId(), member.convertRole());
         String accessToken = jwtUtils.issueAccessToken(jwtDto);
         String refreshToken = jwtUtils.issueRefreshToken(jwtDto);
         member.updateLastedAccessAt();
+        makeRefreshToken(member, refreshToken);
         return List.of(accessToken, refreshToken);
+    }
+
+    private void makeRefreshToken(Member member, String refreshToken) {
+        RefreshTokenDto refreshTokenDto = RefreshTokenDto.make(member.getId(), refreshToken, 15, member.convertRole());
+        refreshTokenService.register(refreshTokenDto);
     }
 
     private void isBefore(Member member) {

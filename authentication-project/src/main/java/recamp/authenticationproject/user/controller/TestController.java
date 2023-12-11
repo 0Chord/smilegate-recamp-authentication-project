@@ -13,6 +13,7 @@ import recamp.authenticationproject.global.dto.CodeDto;
 import recamp.authenticationproject.global.dto.LoginDto;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.MessageDto;
+import recamp.authenticationproject.global.dto.TokenDto;
 import recamp.authenticationproject.global.service.IdentityVerificationService;
 import recamp.authenticationproject.global.service.LoginService;
 import recamp.authenticationproject.user.service.MemberService;
@@ -24,6 +25,7 @@ public class TestController {
     private final IdentityVerificationService identityVerificationService;
     private final MemberService memberService;
     private final LoginService loginService;
+
 
     @PostMapping("/test/test")
     public String test(@RequestBody @Validated MessageDto messageDto) {
@@ -60,5 +62,14 @@ public class TestController {
     @GetMapping("/admin")
     public String admin() {
         return "admin";
+    }
+
+    @PostMapping("/valid")
+    public ResponseEntity<String> valid(@RequestBody @Validated TokenDto refreshToken) {
+        String accessToken = identityVerificationService.refreshTokenValidation(refreshToken.getToken());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("accessToken", accessToken);
+        return ResponseEntity.ok().headers(headers).body("OK");
+
     }
 }

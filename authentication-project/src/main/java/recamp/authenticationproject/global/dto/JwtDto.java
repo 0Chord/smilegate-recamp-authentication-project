@@ -1,32 +1,26 @@
 package recamp.authenticationproject.global.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import recamp.authenticationproject.user.domain.Role;
 
 @Getter
 public class JwtDto {
+    @NotBlank
     private Long userId;
+    @NotBlank
     private String role;
-    private String name;
 
     private JwtDto() {
         throw new IllegalStateException();
     }
 
-    private JwtDto(Long userId, Role role, String name) {
+    private JwtDto(Long userId, String role) {
         this.userId = userId;
-        this.role = makeRole(role);
-        this.name = name;
+        this.role = role;
     }
 
-    public static JwtDto make(Long userId, Role role, String name) {
-        return new JwtDto(userId, role, name);
+    public static JwtDto make(Long userId, String role) {
+        return new JwtDto(userId, role);
     }
 
-    private String makeRole(Role role) {
-        if (role.equals(Role.USER)) {
-            return "ROLE_USER";
-        }
-        return "ROLE_ADMIN";
-    }
 }

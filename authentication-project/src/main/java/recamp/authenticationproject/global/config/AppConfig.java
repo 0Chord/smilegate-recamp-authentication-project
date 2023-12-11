@@ -8,15 +8,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import recamp.authenticationproject.global.repository.PhoneRedisRepository;
 import recamp.authenticationproject.global.repository.PhoneRepository;
+import recamp.authenticationproject.global.repository.RefreshTokenRedisRepository;
+import recamp.authenticationproject.global.repository.RefreshTokenRepository;
 import recamp.authenticationproject.global.repository.impl.PhoneRepositoryImpl;
+import recamp.authenticationproject.global.repository.impl.RefreshTokenRepositoryImpl;
 import recamp.authenticationproject.global.service.IdentityVerificationService;
 import recamp.authenticationproject.global.service.LoginService;
 import recamp.authenticationproject.global.service.MessageService;
 import recamp.authenticationproject.global.service.PhoneService;
+import recamp.authenticationproject.global.service.RefreshTokenService;
 import recamp.authenticationproject.global.service.impl.IdentityVerificationServiceImpl;
 import recamp.authenticationproject.global.service.impl.LoginServiceImpl;
 import recamp.authenticationproject.global.service.impl.MessageServiceImpl;
 import recamp.authenticationproject.global.service.impl.PhoneServiceImpl;
+import recamp.authenticationproject.global.service.impl.RefreshTokenServiceImpl;
 import recamp.authenticationproject.global.utility.JwtUtils;
 import recamp.authenticationproject.user.repository.JpaMemberRepository;
 import recamp.authenticationproject.user.repository.MemberRepository;
@@ -32,6 +37,7 @@ public class AppConfig {
     private final JpaMemberRepository jpaMemberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtUtils jwtUtils;
+    private final RefreshTokenRedisRepository refreshTokenRedisRepository;
     @Value("${message.api_key}")
     private String apiKey;
     @Value("${message.api_secret}")
@@ -51,7 +57,8 @@ public class AppConfig {
 
     @Bean
     public IdentityVerificationService identityVerificationService() {
-        return new IdentityVerificationServiceImpl(messageService(), phoneService());
+        return new IdentityVerificationServiceImpl(messageService(), phoneService(), refreshTokenService(), jwtUtils,
+                memberService());
     }
 
     @Bean
@@ -76,6 +83,16 @@ public class AppConfig {
 
     @Bean
     public LoginService loginService() {
-        return new LoginServiceImpl(bCryptPasswordEncoder, memberService(), jwtUtils);
+        return new LoginServiceImpl(bCryptPasswordEncoder, memberService(), jwtUtils, refreshTokenService());
+    }
+
+    @Bean
+    public RefreshTokenRepository refreshTokenRepository() {
+        return new RefreshTokenRepositoryImpl(refreshTokenRedisRepository);
+    }
+
+    @Bean
+    public RefreshTokenService refreshTokenService() {
+        return new RefreshTokenServiceImpl(refreshTokenRepository());
     }
 }
