@@ -8,7 +8,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,13 +35,20 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private boolean verified;
+
     @Builder
-    public Member(String password,PersonalInformation information, Role role) {
+    public Member(String password, PersonalInformation information, Role role, boolean verified) {
+        this.verified = verified;
         this.password = password;
         this.personalInformation = information;
         this.createdAt = LocalDateTime.now();
         this.lastedAccessAt = LocalDateTime.now();
         this.role = role;
         this.suspendedAt = LocalDateTime.now();
+    }
+
+    public void updateLastedAccessAt() {
+        this.lastedAccessAt = LocalDateTime.now();
     }
 }

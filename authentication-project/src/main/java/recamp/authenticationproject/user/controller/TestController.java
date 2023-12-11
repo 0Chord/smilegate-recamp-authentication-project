@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import recamp.authenticationproject.global.dto.CodeDto;
 import recamp.authenticationproject.global.dto.LoginDto;
@@ -19,37 +19,46 @@ import recamp.authenticationproject.user.service.MemberService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/test")
 public class TestController {
 
     private final IdentityVerificationService identityVerificationService;
     private final MemberService memberService;
     private final LoginService loginService;
 
-    @PostMapping("/test")
+    @PostMapping("/test/test")
     public String test(@RequestBody @Validated MessageDto messageDto) {
         identityVerificationService.sendPhoneValidation(messageDto);
         return "ok";
     }
 
-    @PostMapping("/validated")
+    @PostMapping("/test/validated")
     public String test(@RequestBody @Validated CodeDto codeDto) {
         identityVerificationService.codeValidation(codeDto);
         return "ok";
     }
 
-    @PostMapping("/join")
+    @PostMapping("/test/join")
     public String join(@RequestBody @Validated MemberDto memberDto) {
         memberService.save(memberDto);
         return "ok";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/test/login")
     public ResponseEntity<String> login(@RequestBody @Validated LoginDto loginDto) {
         List<String> tokens = loginService.login(loginDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("accessToken", tokens.get(0));
         headers.add("refreshToken", tokens.get(1));
         return ResponseEntity.ok().headers(headers).body("SUCCESS");
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "ok";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
     }
 }

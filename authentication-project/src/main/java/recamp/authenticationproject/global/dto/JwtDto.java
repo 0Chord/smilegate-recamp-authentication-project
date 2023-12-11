@@ -25,8 +25,8 @@ public class JwtDto {
 
     private String makeRole(Role role) {
         if (role.equals(Role.USER)) {
-            return "USER";
+            return "ROLE_USER";
         }
-        return "ADMIN";
+        return "ROLE_ADMIN";
     }
 }

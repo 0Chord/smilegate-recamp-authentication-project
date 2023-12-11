@@ -25,6 +25,7 @@ public class LoginServiceImpl implements LoginService {
     private final JwtUtils jwtUtils;
 
     @Override
+    @Transactional
     public List<String> login(LoginDto loginDto) {
         Member member = memberService.findMemberByEmail(loginDto.getEmail());
         isBefore(member);
@@ -32,6 +33,7 @@ public class LoginServiceImpl implements LoginService {
         JwtDto jwtDto = JwtDto.make(member.getId(), member.getRole(), member.getPersonalInformation().getName());
         String accessToken = jwtUtils.issueAccessToken(jwtDto);
         String refreshToken = jwtUtils.issueRefreshToken(jwtDto);
+        member.updateLastedAccessAt();
         return List.of(accessToken, refreshToken);
     }
 
