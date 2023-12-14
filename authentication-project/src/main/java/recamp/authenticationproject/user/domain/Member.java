@@ -12,11 +12,15 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import recamp.authenticationproject.global.exception.SuspendedMemberException;
+import recamp.authenticationproject.global.exception.UnauthorizedAccessException;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Member {
+
+    private static final String EXCEPTION_MESSAGE = "정지된 회원입니다. 이용이 불가합니다.";
 
     @Id
     @Column(name = "user_id")
@@ -57,5 +61,17 @@ public class Member {
             return "ROLE_USER";
         }
         return "ROLE_ADMIN";
+    }
+
+    public void checkVerified() {
+        if (!verified) {
+            throw new UnauthorizedAccessException();
+        }
+    }
+
+    public void checkSuspendTime() {
+        if (suspendedAt.isAfter(LocalDateTime.now())) {
+            throw new SuspendedMemberException(EXCEPTION_MESSAGE);
+        }
     }
 }

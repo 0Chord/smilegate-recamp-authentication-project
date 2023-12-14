@@ -16,6 +16,8 @@
 - [x] React 
 - [x] Docker
 - [x] Jenkins
+- [x] SonarQube
+- [x] JMeter
 ## 🔎 프로젝트 요구 사항
 
 ---

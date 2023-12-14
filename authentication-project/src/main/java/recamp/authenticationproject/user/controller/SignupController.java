@@ -1,6 +1,7 @@
 package recamp.authenticationproject.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,14 +14,11 @@ import recamp.authenticationproject.user.service.MemberService;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 public class SignupController {
-
     private final MemberService memberService;
 
-
     @PostMapping("/join")
-    public String join(@RequestBody @Validated MemberDto memberDto) {
+    public ResponseEntity<String> join(@RequestBody @Validated MemberDto memberDto) {
         memberService.save(memberDto);
-        return "ok";
+        return ResponseEntity.ok().body("ok");
     }
-
 }
