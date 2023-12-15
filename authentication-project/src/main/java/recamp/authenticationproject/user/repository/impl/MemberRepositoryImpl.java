@@ -3,8 +3,8 @@ package recamp.authenticationproject.user.repository.impl;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import recamp.authenticationproject.user.domain.Member;
+import recamp.authenticationproject.user.domain.Role;
 import recamp.authenticationproject.user.repository.JpaMemberRepository;
 import recamp.authenticationproject.user.repository.MemberRepository;
 
@@ -24,7 +24,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public List<Member> findAll() {
-        return jpaMemberRepository.findAll();
+        return jpaMemberRepository.findUserMember(Role.USER);
     }
 
     @Override

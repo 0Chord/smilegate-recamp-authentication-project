@@ -12,11 +12,13 @@ import recamp.authenticationproject.global.repository.RefreshTokenRedisRepositor
 import recamp.authenticationproject.global.repository.RefreshTokenRepository;
 import recamp.authenticationproject.global.repository.impl.PhoneRepositoryImpl;
 import recamp.authenticationproject.global.repository.impl.RefreshTokenRepositoryImpl;
+import recamp.authenticationproject.global.service.ConvertService;
 import recamp.authenticationproject.global.service.IdentityVerificationService;
 import recamp.authenticationproject.global.service.LoginService;
 import recamp.authenticationproject.global.service.MessageService;
 import recamp.authenticationproject.global.service.PhoneService;
 import recamp.authenticationproject.global.service.RefreshTokenService;
+import recamp.authenticationproject.global.service.impl.ConvertServiceImpl;
 import recamp.authenticationproject.global.service.impl.IdentityVerificationServiceImpl;
 import recamp.authenticationproject.global.service.impl.LoginServiceImpl;
 import recamp.authenticationproject.global.service.impl.MessageServiceImpl;
@@ -94,5 +96,10 @@ public class AppConfig {
     @Bean
     public RefreshTokenService refreshTokenService() {
         return new RefreshTokenServiceImpl(refreshTokenRepository());
+    }
+
+    @Bean
+    public ConvertService convertService() {
+        return new ConvertServiceImpl(memberService());
     }
 }
