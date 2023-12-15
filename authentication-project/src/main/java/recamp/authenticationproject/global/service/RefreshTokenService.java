@@ -8,4 +8,6 @@ public interface RefreshTokenService {
     void register(RefreshTokenDto refreshTokenDto);
 
     RefreshToken findById(Long id);
+
+    void deleteToken(RefreshToken refreshToken);
 }

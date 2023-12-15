@@ -9,11 +9,10 @@ import recamp.authenticationproject.user.repository.JpaMemberRepository;
 import recamp.authenticationproject.user.repository.MemberRepository;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class MemberRepositoryImpl implements MemberRepository {
     private final JpaMemberRepository jpaMemberRepository;
+
     @Override
-    @Transactional
     public void save(Member member) {
         jpaMemberRepository.save(member);
     }
@@ -31,5 +30,10 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Optional<Member> findByEmail(String email) {
         return jpaMemberRepository.findByPersonalInformation_Email(email);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return jpaMemberRepository.existsByPersonalInformation_Email(email);
     }
 }

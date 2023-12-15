@@ -12,4 +12,6 @@ public interface RefreshTokenRepository {
 
     Iterable<RefreshToken> findAll();
 
+    void delete(RefreshToken refreshToken);
+
 }

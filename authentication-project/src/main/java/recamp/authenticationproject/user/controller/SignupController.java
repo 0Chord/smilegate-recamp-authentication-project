@@ -19,6 +19,6 @@ public class SignupController {
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody @Validated MemberDto memberDto) {
         memberService.save(memberDto);
-        return ResponseEntity.ok().body("ok");
+        return ResponseEntity.ok().body("SUCCESS");
     }
 }

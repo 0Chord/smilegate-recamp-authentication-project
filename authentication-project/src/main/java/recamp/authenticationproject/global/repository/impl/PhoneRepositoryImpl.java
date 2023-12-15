@@ -26,4 +26,9 @@ public class PhoneRepositoryImpl implements PhoneRepository {
     public Iterable<Phone> findAll() {
         return phoneRedisRepository.findAll();
     }
+
+    @Override
+    public void delete(Phone phone) {
+        phoneRedisRepository.delete(phone);
+    }
 }

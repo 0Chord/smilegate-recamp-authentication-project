@@ -26,4 +26,9 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
     public Iterable<RefreshToken> findAll() {
         return refreshTokenRedisRepository.findAll();
     }
+
+    @Override
+    public void delete(RefreshToken refreshToken) {
+        refreshTokenRedisRepository.delete(refreshToken);
+    }
 }

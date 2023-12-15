@@ -7,13 +7,11 @@ import recamp.authenticationproject.global.repository.PhoneRepository;
 import recamp.authenticationproject.global.service.PhoneService;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PhoneServiceImpl implements PhoneService {
 
     private final PhoneRepository phoneRepository;
 
     @Override
-    @Transactional
     public void save(String number, String code) {
         Phone phone = Phone.builder().number(number).token(code).expiration(5).build();
         phoneRepository.save(phone);
@@ -27,5 +25,10 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Iterable<Phone> findAll() {
         return phoneRepository.findAll();
+    }
+
+    @Override
+    public void delete(Phone phone) {
+        phoneRepository.delete(phone);
     }
 }

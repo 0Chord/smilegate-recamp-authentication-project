@@ -10,4 +10,6 @@ public interface PhoneRepository {
     Optional<Phone> findById(String number);
 
     Iterable<Phone> findAll();
+
+    void delete(Phone phone);
 }

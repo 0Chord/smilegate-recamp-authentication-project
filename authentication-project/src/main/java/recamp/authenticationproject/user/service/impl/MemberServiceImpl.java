@@ -14,7 +14,7 @@ import recamp.authenticationproject.user.service.MemberService;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private static final String message = "비밀번호가 일치하지 않습니다. 다시 시도 부탁드립니다";
+    private static final String MESSAGE = "비밀번호가 일치하지 않습니다. 다시 시도 부탁드립니다";
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder encoder;
 
@@ -55,9 +55,14 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByEmail(email).orElseThrow();
     }
 
+    @Override
+    public boolean existsEmail(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
     private void comparePasswords(String password, String validationPassword) {
         if (!password.equals(validationPassword)) {
-            throw new IllegalPasswordException(message);
+            throw new IllegalPasswordException(MESSAGE);
         }
     }
 }

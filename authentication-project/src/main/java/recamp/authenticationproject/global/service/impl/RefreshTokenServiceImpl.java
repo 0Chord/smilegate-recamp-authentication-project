@@ -29,4 +29,9 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken findById(Long id) {
         return repository.findById(id).orElseThrow();
     }
+
+    @Override
+    public void deleteToken(RefreshToken refreshToken) {
+        repository.delete(refreshToken);
+    }
 }

@@ -75,8 +75,8 @@ public final class JwtUtils {
         }
     }
 
-    public String getUserPk(String token) {
-        System.out.println("token = " + token);
+    public String getUserPk(String bearerToken) {
+        String token = extractToken(bearerToken);
         return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(token).getBody().getSubject();
     }
 

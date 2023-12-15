@@ -1,11 +1,15 @@
 package recamp.authenticationproject.global.dto;
 
-public class GeneralResponseDto {
+import lombok.Getter;
 
+@Getter
+public class GeneralResponseDto {
+    private String exception;
     private int code;
     private String message;
 
-    public GeneralResponseDto(int code, String message) {
+    public GeneralResponseDto(String exception, int code, String message) {
+        this.exception = exception;
         this.code = code;
         this.message = message;
     }

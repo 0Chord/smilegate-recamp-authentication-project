@@ -18,14 +18,14 @@ public class MessageController {
     private final IdentityVerificationService identityVerificationService;
 
     @PostMapping("/send")
-    public String test(@RequestBody @Validated MessageDto messageDto) {
+    public String send(@RequestBody @Validated MessageDto messageDto) {
         identityVerificationService.sendPhoneValidation(messageDto);
-        return "ok";
+        return "SUCCESS";
     }
 
     @PostMapping("/validated")
-    public String test(@RequestBody @Validated CodeDto codeDto) {
+    public String validatePhone(@RequestBody @Validated CodeDto codeDto) {
         identityVerificationService.codeValidation(codeDto);
-        return "ok";
+        return "SUCCESS";
     }
 }

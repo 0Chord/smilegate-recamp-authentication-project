@@ -18,6 +18,7 @@ public class PersonalInformation {
     private String email;
     @NotBlank(message = "이름 입력은 필수입니다")
     private String name;
+    @Column(unique = true)
     @NotBlank(message = "전화번호 입력은 필수입니다")
     private String phone;
 
