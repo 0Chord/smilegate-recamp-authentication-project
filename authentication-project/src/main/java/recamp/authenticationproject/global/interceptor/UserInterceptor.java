@@ -16,8 +16,16 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        System.out.println("UserInterceptor.preHandle");
+        System.out.println(request.getRequestURL() + "-" + request.getRemoteAddr());
+        System.out.println("====================");
         String authorization = request.getHeader("Authorization");
-        jwtUtils.validationUser(authorization);
+        try {
+            jwtUtils.validationUser(authorization);
+        } catch (Exception e) {
+            request.setAttribute("exception", "UnauthorizedAccessException");
+            request.getRequestDispatcher("/api/error").forward(request, response);
+        }
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }

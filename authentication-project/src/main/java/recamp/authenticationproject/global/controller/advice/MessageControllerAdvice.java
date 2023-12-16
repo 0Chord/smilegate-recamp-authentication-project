@@ -4,11 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import recamp.authenticationproject.global.controller.MessageController;
 import recamp.authenticationproject.global.dto.GeneralResponseDto;
 import recamp.authenticationproject.global.exception.IllegalCodeException;
 import recamp.authenticationproject.global.exception.MessageException;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackageClasses = MessageController.class)
 public class MessageControllerAdvice {
 
     private static final String MESSAGE_EXCEPTION = "MessageException";

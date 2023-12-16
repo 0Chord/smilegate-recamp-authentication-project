@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import recamp.authenticationproject.global.dto.EmailDto;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.user.domain.Member;
 

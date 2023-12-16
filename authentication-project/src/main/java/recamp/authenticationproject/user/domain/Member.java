@@ -21,6 +21,7 @@ import recamp.authenticationproject.global.exception.UnauthorizedAccessException
 public class Member {
 
     private static final String EXCEPTION_MESSAGE = "정지된 회원입니다. 이용이 불가합니다.";
+    private static final String VERIFIED_MESSAGE = "인증이 안된 회원입니다. 다시 가입해주시길 바랍니다";
 
     @Id
     @Column(name = "user_id")
@@ -64,8 +65,8 @@ public class Member {
     }
 
     public void checkVerified() {
-        if (!verified) {
-            throw new UnauthorizedAccessException();
+        if (!verified){
+            throw new UnauthorizedAccessException(VERIFIED_MESSAGE);
         }
     }
 

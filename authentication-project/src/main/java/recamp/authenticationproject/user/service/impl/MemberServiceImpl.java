@@ -35,7 +35,9 @@ public class MemberServiceImpl implements MemberService {
         Member member = Member.builder()
                 .information(information)
                 .password(encodingPassword)
-                .role(role).build();
+                .role(role)
+                .verified(memberDto.isVerified())
+                .build();
         memberRepository.save(member);
 
     }
