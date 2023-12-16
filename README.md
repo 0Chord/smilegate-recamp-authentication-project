@@ -49,6 +49,7 @@
 - [x] Jenkins를 활용한 자동 배포
   - [x] GCP에 VM 생성
   - [x] Docker를 활용 배포
+  - [x] SonarQube를 활용한 정적 검사 실행
 - [x] Table 작성
   - [x] 개인 프로젝트이므로 Entity를 작성하여 바로 table 생성
 - [x] 회원 가입
