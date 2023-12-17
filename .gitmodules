@@ -1,0 +1,3 @@
+[submodule "authentication-project/recamp-private-project-env"]
+	path = authentication-project/recamp-private-project-env
+	url = https://github.com/0Chord/recamp-private-project-env
