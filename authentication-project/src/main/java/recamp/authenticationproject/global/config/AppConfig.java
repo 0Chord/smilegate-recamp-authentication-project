@@ -12,13 +12,11 @@ import recamp.authenticationproject.global.repository.RefreshTokenRedisRepositor
 import recamp.authenticationproject.global.repository.RefreshTokenRepository;
 import recamp.authenticationproject.global.repository.impl.PhoneRepositoryImpl;
 import recamp.authenticationproject.global.repository.impl.RefreshTokenRepositoryImpl;
-import recamp.authenticationproject.global.service.ConvertService;
 import recamp.authenticationproject.global.service.IdentityVerificationService;
 import recamp.authenticationproject.global.service.LoginService;
 import recamp.authenticationproject.global.service.MessageService;
 import recamp.authenticationproject.global.service.PhoneService;
 import recamp.authenticationproject.global.service.RefreshTokenService;
-import recamp.authenticationproject.global.service.impl.ConvertServiceImpl;
 import recamp.authenticationproject.global.service.impl.IdentityVerificationServiceImpl;
 import recamp.authenticationproject.global.service.impl.LoginServiceImpl;
 import recamp.authenticationproject.global.service.impl.MessageServiceImpl;
@@ -28,7 +26,9 @@ import recamp.authenticationproject.global.utility.JwtUtils;
 import recamp.authenticationproject.user.repository.JpaMemberRepository;
 import recamp.authenticationproject.user.repository.MemberRepository;
 import recamp.authenticationproject.user.repository.impl.MemberRepositoryImpl;
+import recamp.authenticationproject.user.service.AdminService;
 import recamp.authenticationproject.user.service.MemberService;
+import recamp.authenticationproject.user.service.impl.AdminServiceImpl;
 import recamp.authenticationproject.user.service.impl.MemberServiceImpl;
 
 @Configuration
@@ -99,7 +99,8 @@ public class AppConfig {
     }
 
     @Bean
-    public ConvertService convertService() {
-        return new ConvertServiceImpl(memberService());
+    public AdminService adminService() {
+        return new AdminServiceImpl(memberService());
     }
+
 }

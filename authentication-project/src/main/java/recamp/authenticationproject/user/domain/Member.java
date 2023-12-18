@@ -75,4 +75,8 @@ public class Member {
             throw new SuspendedMemberException(EXCEPTION_MESSAGE);
         }
     }
+
+    public void updateSuspendTime(int days) {
+        this.suspendedAt = LocalDateTime.now().plusDays(days);
+    }
 }

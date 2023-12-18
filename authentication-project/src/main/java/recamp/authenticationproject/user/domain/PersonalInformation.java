@@ -31,4 +31,8 @@ public class PersonalInformation {
     public static PersonalInformation make(String email, String name, String phone) {
         return new PersonalInformation(email, name, phone);
     }
+
+    public PersonalInformation updateName(String name) {
+        return new PersonalInformation(email, name, phone);
+    }
 }
