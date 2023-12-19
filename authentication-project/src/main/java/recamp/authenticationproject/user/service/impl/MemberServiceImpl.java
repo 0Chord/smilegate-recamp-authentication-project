@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import recamp.authenticationproject.global.dto.MemberDto;
+import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.global.utility.Validator;
 import recamp.authenticationproject.user.domain.Member;
 import recamp.authenticationproject.user.domain.PersonalInformation;
@@ -58,6 +59,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean existsEmail(String email) {
         return memberRepository.existsByEmail(email);
+    }
+
+    @Override
+    public void updatePassword(Long userId,PasswordDto passwordDto) {
+        String newPassword = passwordDto.getPassword();
+        String password = encoder.encode(newPassword);
+        Member member = memberRepository.findById(userId).orElseThrow();
+        member.updatePassword(password);
     }
 
 }

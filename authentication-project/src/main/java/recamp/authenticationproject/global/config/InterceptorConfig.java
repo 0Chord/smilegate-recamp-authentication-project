@@ -19,14 +19,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminInterceptor(jwtUtils))
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/join", "/error",
+                .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/**", "/error",
                         "/api/v1/error");
         registry.addInterceptor(new UserInterceptor(jwtUtils))
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/join",
+                .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/**",
                         "/api/v1/admin/**", "/error", "/api/v1/error");
         registry.addInterceptor(new PrivateInterceptor(jwtUtils))
-                .addPathPatterns("/**")
+                .addPathPatterns("/api/v1/user/{userId}/change/password")
                 .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/join",
                         "/api/v1/admin/**", "/error", "/api/v1/error");
     }

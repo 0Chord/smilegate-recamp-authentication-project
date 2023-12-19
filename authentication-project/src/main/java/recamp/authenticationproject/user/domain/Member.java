@@ -65,7 +65,7 @@ public class Member {
     }
 
     public void checkVerified() {
-        if (!verified){
+        if (!verified) {
             throw new UnauthorizedAccessException(VERIFIED_MESSAGE);
         }
     }
@@ -77,6 +77,10 @@ public class Member {
     }
 
     public void updateSuspendTime(int days) {
-        this.suspendedAt = LocalDateTime.now().plusDays(days);
+        this.suspendedAt = suspendedAt.plusDays(days);
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

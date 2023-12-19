@@ -24,7 +24,8 @@ public class UserInterceptor implements HandlerInterceptor {
             jwtUtils.validationUser(authorization);
         } catch (Exception e) {
             request.setAttribute("exception", "UnauthorizedAccessException");
-            request.getRequestDispatcher("/api/error").forward(request, response);
+            request.getRequestDispatcher("/api/v1/error").forward(request, response);
+            return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }

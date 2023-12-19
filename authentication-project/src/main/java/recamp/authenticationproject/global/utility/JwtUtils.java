@@ -77,7 +77,12 @@ public final class JwtUtils {
 
     public String getUserPk(String bearerToken) {
         String token = extractToken(bearerToken);
-        return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(token).getBody().getSubject();
+        try {
+            return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(token).getBody().getSubject();
+        } catch (Exception e) {
+            System.out.println("e.toString() = " + e.toString());
+            throw new UnauthorizedAccessException();
+        }
     }
 
     public void validationUser(String bearerToken) {

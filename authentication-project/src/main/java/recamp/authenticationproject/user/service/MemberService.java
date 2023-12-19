@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import recamp.authenticationproject.global.dto.MemberDto;
+import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.user.domain.Member;
 
 @Validated
@@ -21,4 +22,7 @@ public interface MemberService {
     Member findMemberByEmail(String email);
 
     boolean existsEmail(String email);
+
+    @Transactional
+    void updatePassword(Long userId, @Valid PasswordDto passwordDto);
 }

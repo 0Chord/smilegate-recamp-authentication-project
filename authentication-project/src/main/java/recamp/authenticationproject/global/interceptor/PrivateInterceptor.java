@@ -2,9 +2,11 @@ package recamp.authenticationproject.global.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.HandlerMapping;
 import recamp.authenticationproject.global.exception.UnauthorizedAccessException;
 import recamp.authenticationproject.global.utility.JwtUtils;
 
@@ -21,16 +23,21 @@ public class PrivateInterceptor implements HandlerInterceptor {
         System.out.println(request.getRequestURL() + "-" + request.getRemoteAddr());
         System.out.println("====================");
         String url = request.getRequestURL().toString();
-        String bearerToken = request.getHeader("bearer-token");
+        String bearerToken = request.getHeader("Authorization");
         try {
             String userId = jwtUtils.getUserPk(bearerToken);
-            log.info(userId + "님이 " + url + "로 접속을 시도했습니다.");
-            if (!url.equals(userId)) {
+            Map<?, ?> pathVariables = (Map<?, ?>) request.getAttribute(
+                    HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            String pathUserId = pathVariables.get("userId").toString();
+            if (!pathUserId.equals(userId)) {
+                System.out.println("pathUserId = " + pathUserId);
+                System.out.println("userId = " + userId);
                 throw new UnauthorizedAccessException();
             }
         } catch (Exception e) {
             request.setAttribute("exception", "UnauthorizedAccessException");
             request.getRequestDispatcher("/api/v1/error").forward(request, response);
+            return false;
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }

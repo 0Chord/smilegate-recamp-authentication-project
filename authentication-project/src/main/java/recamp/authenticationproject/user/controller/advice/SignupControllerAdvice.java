@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import recamp.authenticationproject.global.dto.GeneralResponseDto;
 import recamp.authenticationproject.global.exception.IllegalPasswordException;
-import recamp.authenticationproject.user.controller.SignupController;
+import recamp.authenticationproject.user.controller.MemberController;
 
-@RestControllerAdvice(basePackageClasses = SignupController.class)
+@RestControllerAdvice(basePackageClasses = MemberController.class)
 public class SignupControllerAdvice {
     private static final String PASSWORD_EXCEPTION = "IllegalPasswordException";
     private static final int PASSWORD_EXCEPTION_CODE = 10004;
