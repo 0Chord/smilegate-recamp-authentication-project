@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import recamp.authenticationproject.global.annotation.AuthorizeUser;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.user.domain.Member;
@@ -24,5 +25,6 @@ public interface MemberService {
     boolean existsEmail(String email);
 
     @Transactional
+    @AuthorizeUser
     void updatePassword(Long userId, @Valid PasswordDto passwordDto);
 }

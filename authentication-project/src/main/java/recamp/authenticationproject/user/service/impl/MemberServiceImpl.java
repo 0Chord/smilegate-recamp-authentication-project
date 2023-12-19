@@ -3,6 +3,7 @@ package recamp.authenticationproject.user.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import recamp.authenticationproject.global.annotation.AuthorizeUser;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.global.utility.Validator;
@@ -62,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updatePassword(Long userId,PasswordDto passwordDto) {
+    public void updatePassword(Long userId, PasswordDto passwordDto) {
         String newPassword = passwordDto.getPassword();
         String password = encoder.encode(newPassword);
         Member member = memberRepository.findById(userId).orElseThrow();
