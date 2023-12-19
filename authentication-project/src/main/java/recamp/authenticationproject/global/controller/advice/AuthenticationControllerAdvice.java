@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import recamp.authenticationproject.global.controller.AuthenticationController;
 import recamp.authenticationproject.global.dto.GeneralResponseDto;
+import recamp.authenticationproject.global.exception.DeleteMemberException;
 import recamp.authenticationproject.global.exception.DuplicateEmailException;
 import recamp.authenticationproject.global.exception.IllegalPasswordException;
 import recamp.authenticationproject.global.exception.SuspendedMemberException;
@@ -27,6 +28,9 @@ public class AuthenticationControllerAdvice {
     private static final String UNAUTHORIZED_MESSAGE_EXCEPTION_MESSAGE = "문자인증이 안된 사용자입니다. 이용이 불가합니다";
     private static final String DUPLICATE_EMAIL_EXCEPTION = "DuplicateEmailException";
     private static final int DUPLICATE_EMAIL_EXCEPTION_CODE = 10007;
+    private static final int DELETE_MEMBER_EXCEPTION_CODE = 10009;
+    private static final String DELETE_MEMBER_EXCEPTION = "DeleteMemberException";
+
 
     @ExceptionHandler(SuspendedMemberException.class)
     public ResponseEntity<GeneralResponseDto> exceptionHandler(SuspendedMemberException e) {
@@ -58,6 +62,13 @@ public class AuthenticationControllerAdvice {
     public ResponseEntity<GeneralResponseDto> exceptionHandler(DuplicateEmailException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new GeneralResponseDto(DUPLICATE_EMAIL_EXCEPTION, DUPLICATE_EMAIL_EXCEPTION_CODE,
+                        e.getMessage()));
+    }
+
+    @ExceptionHandler(DeleteMemberException.class)
+    public ResponseEntity<GeneralResponseDto> exceptionHandler(DeleteMemberException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new GeneralResponseDto(DELETE_MEMBER_EXCEPTION, DELETE_MEMBER_EXCEPTION_CODE,
                         e.getMessage()));
     }
 }

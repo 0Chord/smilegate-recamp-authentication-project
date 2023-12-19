@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import recamp.authenticationproject.global.exception.DeleteMemberException;
 import recamp.authenticationproject.global.exception.SuspendedMemberException;
 import recamp.authenticationproject.global.exception.UnauthorizedAccessException;
 
@@ -22,6 +23,7 @@ public class Member {
 
     private static final String EXCEPTION_MESSAGE = "정지된 회원입니다. 이용이 불가합니다.";
     private static final String VERIFIED_MESSAGE = "인증이 안된 회원입니다. 다시 가입해주시길 바랍니다";
+    private static final String DELETE_USER_MESSAGE = "운영자로부터 삭제된 회원입니다. 이용이 불가합니다";
 
     @Id
     @Column(name = "user_id")
@@ -39,6 +41,8 @@ public class Member {
     private LocalDateTime lastedAccessAt;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     private boolean verified;
 
@@ -51,6 +55,7 @@ public class Member {
         this.lastedAccessAt = LocalDateTime.now();
         this.role = role;
         this.suspendedAt = LocalDateTime.now();
+        this.status = UserStatus.WELL;
     }
 
     public void updateLastedAccessAt() {
@@ -82,5 +87,15 @@ public class Member {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void updateUserStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public void checkDeleteUser() {
+        if (status.equals(UserStatus.DELETE)) {
+            throw new DeleteMemberException(DELETE_USER_MESSAGE);
+        }
     }
 }

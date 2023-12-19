@@ -14,4 +14,7 @@ public interface AdminService {
 
     MembersResponseDto findMembers();
 
+    @Transactional
+    void deleteMember(Long userId);
+
 }

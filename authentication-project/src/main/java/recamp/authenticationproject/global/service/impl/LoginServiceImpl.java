@@ -30,6 +30,7 @@ public class LoginServiceImpl implements LoginService {
         Member member = memberService.findMemberByEmail(loginDto.getEmail());
         member.checkSuspendTime();
         member.checkVerified();
+        member.checkDeleteUser();
         comparePassword(loginDto, member);
         JwtDto jwtDto = JwtDto.make(member.getId(), member.convertRole());
         String accessToken = jwtUtils.issueAccessToken(jwtDto);

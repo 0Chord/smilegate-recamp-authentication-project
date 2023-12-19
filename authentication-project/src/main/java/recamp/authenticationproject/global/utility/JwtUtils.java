@@ -80,7 +80,6 @@ public final class JwtUtils {
         try {
             return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(token).getBody().getSubject();
         } catch (Exception e) {
-            System.out.println("e.toString() = " + e.toString());
             throw new UnauthorizedAccessException();
         }
     }

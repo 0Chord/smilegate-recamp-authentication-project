@@ -7,6 +7,7 @@ import recamp.authenticationproject.global.dto.MemberResponseDto;
 import recamp.authenticationproject.global.dto.MembersResponseDto;
 import recamp.authenticationproject.global.dto.SuspendUserDto;
 import recamp.authenticationproject.user.domain.Member;
+import recamp.authenticationproject.user.domain.UserStatus;
 import recamp.authenticationproject.user.service.AdminService;
 import recamp.authenticationproject.user.service.MemberService;
 
@@ -35,5 +36,11 @@ public class AdminServiceImpl implements AdminService {
                 .toList();
 
         return MembersResponseDto.make(memberResponseDtos);
+    }
+
+    @Override
+    public void deleteMember(Long userId) {
+        Member member = memberService.findById(userId);
+        member.updateUserStatus(UserStatus.DELETE);
     }
 }
