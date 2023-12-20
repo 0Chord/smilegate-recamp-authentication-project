@@ -3,9 +3,9 @@ package recamp.authenticationproject.user.service.impl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import recamp.authenticationproject.global.annotation.AuthorizeUser;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
+import recamp.authenticationproject.global.exception.NotFoundUserException;
 import recamp.authenticationproject.global.utility.Validator;
 import recamp.authenticationproject.user.domain.Member;
 import recamp.authenticationproject.user.domain.PersonalInformation;
@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findById(Long id) {
-        return memberRepository.findById(id).orElseThrow();
+        return memberRepository.findById(id).orElseThrow(NotFoundUserException::new);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow();
+        return memberRepository.findByEmail(email).orElseThrow(NotFoundUserException::new);
     }
 
     @Override

@@ -4,8 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 public class MemberDto {
@@ -27,4 +29,7 @@ public class MemberDto {
     private String role;
     @NotNull
     private boolean verified;
+    @Nullable
+    private MultipartFile image;
+
 }
