@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "smilegate-devcamp-project",
+  "private_key_id": "63c8c49f6fb94adef48e183aa1059c16f0a1d24e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCsBynhRHj09kEV\nAC/VpJ9gEsgxmLQBQR8X15BuccO5hnujnxtWkfGCb0cGDK3pJ41crMK7SfHghaw1\nqsZuNI1hyjTNSUOkNM0ugonlfhsWvLgwY7ZESScSlxy4pbR2/4xAqhips3iq5cwu\nyUVUO3alZnW5kjzeJWSKbkYrPHYCkDymFkFbmP8ZjE5zzmSptg6+3SNdCUSAEPHD\nPRCyDY+vB3D1iD+olUpdrMQ28FNw2KeDvpwy9gAHsKI8Z/82XOx4k192hfYzTjTz\ndQ58sGUem2Ck1irs2ywyzr6Pi6LJNMJcJdT1HGxwVfL6wAT/qb1PVPKzsjFgpH+H\nV7I2YWxNAgMBAAECggEAGbJKPbWKMeE08IuiGZIpImM71zi9rrBJEjkngG/q8iQW\nBOdn4IMVZcv0eoFbWwgG9DB0OCDACi89fZjAYkbkVZasU3vdqEIg4hEqwwaWyksv\nYj8Kw2F//iVna2eJMPtUOnaOD49Y94IzAUwcWIw3WVaYQDuJbw972LfHMH8sC468\nE5TB3hM11UHFzOKdMCI2OGbWZ76Hkeqwwyruim7aoe0mIpDmgJDYuF6ZfzR3XZZ4\nFylYIoWk0jQsvLfhEqyQdT0+RZQVjMzf15FpwibWblr10rBOpEl5GDGRK6kJF2KI\nCAMbSn2TPy8fIMq86IqTA7q0tzx3eu/iG4LRSN+KqwKBgQDoUrL/YgZmwUSnNeXL\nmvDSAPzQZo4cQ1rkbonrGrgeiihzZDaaMHcJjzvhefkzvIYrglbcKvhqm82xfsqB\ne1llI1/0/G84jo94Z1GYONdq9vVhklDTyq0POVlnUY7XogP1txUNI0ix09eiHxo5\nNXERjm8EakaFp6xVIQZGEvtI6wKBgQC9j15AUZfT3TniMaVxCn9anZrmTjRcEZu9\nceRHMrJJmOFXqdjeX56AKdC+ZOQ6cRtUEf/cEWkXpERaOK0fGomwro0+E/zz/Lr0\nPIDw/MtTD7k9C4kIMiRZXVX6Ez04w810ucychmZIdS38jRhbI7Vu7sKkZnFdrdHd\n+krdLofRpwKBgQDKVFu3trNEgkU8KuB6tfHNszZ6eRaC3tYl428R5i87ya747+nt\n1w+Ur73C3Ot/d0yST+09yd6XWiGF15qdscNlJa3IOqDSbLXecnzJSZeyfGmwFDF4\ngia9/4AxTwJMIbm5IT2gN350AL7nXpcEA9r5I0bkXXoVpLWdXimMlbNrCQKBgGY+\nb1L375G6EJ+dsaPQSrMAsW0pn3pNkRhU1xFEGgAyctFK7ou7PY3ZgBtB5gxTt67X\n6o6z4WB8HNYhHdfaA4yGCe8C7vxXRCu6er4BTFYn8/0mPKpsCUkeW+KAABSfIDGm\nieOfZooMklpXbFy0XQdRxzDPhLRHrhwyBbFZiK6fAoGBAJ9Nta2ugjgjQobGwnwo\n9BK/uFkBoBKYL47nlGVqW58sDV1ULtz13F6wzt5vGm2KiXN58MrWS/sKqLERlb3L\nshftordj4EUiJdNUMpLyRtItlyZhMiAJNPNuvyKD+q3PoBvmU0a6t4/DorajR6o3\n+zmXZPJdGbJuEjAwDk88wTq2\n-----END PRIVATE KEY-----\n",
+  "client_email": "recamp-private-project-storage@smilegate-devcamp-project.iam.gserviceaccount.com",
+  "client_id": "109297167466027714308",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/recamp-private-project-storage%40smilegate-devcamp-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

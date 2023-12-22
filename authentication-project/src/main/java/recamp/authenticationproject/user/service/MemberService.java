@@ -4,7 +4,9 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.multipart.MultipartFile;
 import recamp.authenticationproject.global.annotation.AuthorizeUser;
+import recamp.authenticationproject.global.dto.ImageDto;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.user.domain.Member;
@@ -14,7 +16,7 @@ import recamp.authenticationproject.user.domain.Member;
 public interface MemberService {
 
     @Transactional
-    void save(@Valid MemberDto memberDto);
+    void save(@Valid MemberDto memberDto, MultipartFile image);
 
     Member findById(Long id);
 
@@ -27,4 +29,8 @@ public interface MemberService {
     @Transactional
     @AuthorizeUser
     void updatePassword(Long userId, @Valid PasswordDto passwordDto);
+
+    @Transactional
+    @AuthorizeUser
+    void updateImage(@Valid ImageDto imageDto);
 }

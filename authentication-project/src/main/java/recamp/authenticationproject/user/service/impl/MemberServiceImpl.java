@@ -2,10 +2,14 @@ package recamp.authenticationproject.user.service.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
+import recamp.authenticationproject.global.dto.ImageDto;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.global.exception.NotFoundUserException;
+import recamp.authenticationproject.global.service.ImageService;
 import recamp.authenticationproject.global.utility.Validator;
 import recamp.authenticationproject.user.domain.Member;
 import recamp.authenticationproject.user.domain.PersonalInformation;
@@ -18,6 +22,9 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder encoder;
+    private final ImageService imageService;
+    @Value("${cloud.storage.url}")
+    private String url;
 
     private static Role getRole(MemberDto memberDto) {
         if (memberDto.getRole().equals("USER")) {
@@ -27,17 +34,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void save(MemberDto memberDto) {
+    public void save(MemberDto memberDto, MultipartFile image) {
         Validator.comparePasswords(memberDto.getPassword(), memberDto.getValidationPassword());
         PersonalInformation information = PersonalInformation.make(memberDto.getEmail(), memberDto.getName(),
                 memberDto.getPhone());
         String encodingPassword = encoder.encode(memberDto.getPassword());
         Role role = getRole(memberDto);
+        String imageUrl = imageService.convertImage(image);
         Member member = Member.builder()
                 .information(information)
                 .password(encodingPassword)
                 .role(role)
                 .verified(memberDto.isVerified())
+                .imageUrl(url + imageUrl)
                 .build();
         memberRepository.save(member);
     }
@@ -68,6 +77,14 @@ public class MemberServiceImpl implements MemberService {
         String password = encoder.encode(newPassword);
         Member member = memberRepository.findById(userId).orElseThrow();
         member.updatePassword(password);
+    }
+
+    @Override
+    public void updateImage(ImageDto imageDto) {
+        Long userId = imageDto.getUserId();
+        Member member = memberRepository.findById(userId).orElseThrow(NotFoundUserException::new);
+        String imageUrl = imageService.convertImage(imageDto.getImage());
+        member.updateImage(url + imageUrl);
     }
 
 }

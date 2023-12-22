@@ -6,7 +6,7 @@ spring:
     gcp:
       storage:
         credentials:
-          location: classpath:smilegate-devcamp-project-6270eba52714.json
+          location: classpath:smilegate-devcamp-project-63c8c49f6fb9.json
         project-id: smilegate-devcamp-project
         bucket: recamp
   datasource:

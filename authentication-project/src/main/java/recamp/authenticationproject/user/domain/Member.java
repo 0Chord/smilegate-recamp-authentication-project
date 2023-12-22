@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,11 +45,13 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private UserStatus status;
+    @NotBlank
+    private String image;
 
     private boolean verified;
 
     @Builder
-    public Member(String password, PersonalInformation information, Role role, boolean verified) {
+    public Member(String password, PersonalInformation information, Role role, boolean verified,String imageUrl) {
         this.verified = verified;
         this.password = password;
         this.personalInformation = information;
@@ -57,6 +60,7 @@ public class Member {
         this.role = role;
         this.suspendedAt = LocalDateTime.now();
         this.status = UserStatus.WELL;
+        this.image = imageUrl;
     }
 
     public void updateLastedAccessAt() {
@@ -98,5 +102,9 @@ public class Member {
         if (status.equals(UserStatus.DELETE)) {
             throw new DeleteMemberException(DELETE_USER_MESSAGE);
         }
+    }
+
+    public void updateImage(String image) {
+        this.image = image;
     }
 }

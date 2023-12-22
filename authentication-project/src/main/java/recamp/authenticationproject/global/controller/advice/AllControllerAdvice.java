@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import recamp.authenticationproject.global.dto.GeneralResponseDto;
+import recamp.authenticationproject.global.exception.NotFoundUserException;
 import recamp.authenticationproject.global.exception.UnauthorizedAccessException;
 
 @RestControllerAdvice
@@ -27,6 +28,10 @@ public class AllControllerAdvice {
     private static final String UNAUTHORIZED_EXCEPTION = "UnauthorizedAccessException";
     private static final int UNAUTHORIZED_EXCEPTION_CODE = 20004;
     private static final String UNAUTHORIZED_EXCEPTION_MESSAGE = "인증에 실패했습니다. 재발급 받으시길 바랍니다.";
+    private static final String NOT_FOUND_USER_EXCEPTION = "UnauthorizedAccessException";
+    private static final int NOT_FOUND_USER_EXCEPTION_CODE = 20004;
+    private static final String NOT_FOUND_USER_EXCEPTION_MESSAGE = "인증에 실패했습니다. 재발급 받으시길 바랍니다.";
+
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<GeneralResponseDto> exceptionHandler(NoSuchElementException e) {
@@ -61,5 +66,12 @@ public class AllControllerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new GeneralResponseDto(ILLEGAL_INPUT_EXCEPTION, ILLEGAL_INPUT_EXCEPTION_CODE,
                         ILLEGAL_INPUT_EXCEPTION_MESSAGE));
+    }
+
+    @ExceptionHandler(NotFoundUserException.class)
+    public ResponseEntity<GeneralResponseDto> exceptionHandler(NotFoundUserException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new GeneralResponseDto(NOT_FOUND_USER_EXCEPTION, NOT_FOUND_USER_EXCEPTION_CODE,
+                        NOT_FOUND_USER_EXCEPTION_MESSAGE));
     }
 }

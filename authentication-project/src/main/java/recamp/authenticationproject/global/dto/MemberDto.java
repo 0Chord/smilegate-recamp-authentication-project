@@ -7,9 +7,11 @@ import jakarta.validation.constraints.Pattern;
 import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
+@ToString
 public class MemberDto {
     @Email
     @NotBlank
@@ -29,7 +31,5 @@ public class MemberDto {
     private String role;
     @NotNull
     private boolean verified;
-    @Nullable
-    private MultipartFile image;
 
 }

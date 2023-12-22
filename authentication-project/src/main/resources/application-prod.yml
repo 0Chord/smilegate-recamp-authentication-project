@@ -2,13 +2,6 @@ server:
   port: 8000
 
 spring:
-  cloud:
-    gcp:
-      storage:
-        credentials:
-          location: classpath:smilegate-devcamp-project-6270eba52714.json
-        project-id: smilegate-devcamp-project
-        bucket: recamp
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.17.0.3:3306/recamp?characterEncoding=UTF-8&serverTimeZone=Asia/Seoul
