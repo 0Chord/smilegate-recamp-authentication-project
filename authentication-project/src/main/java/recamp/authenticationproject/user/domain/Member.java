@@ -22,9 +22,6 @@ import recamp.authenticationproject.global.exception.UnauthorizedAccessException
 @NoArgsConstructor
 public class Member {
 
-    private static final String EXCEPTION_MESSAGE = "정지된 회원입니다. 이용이 불가합니다.";
-    private static final String VERIFIED_MESSAGE = "인증이 안된 회원입니다. 다시 가입해주시길 바랍니다";
-    private static final String DELETE_USER_MESSAGE = "운영자로부터 삭제된 회원입니다. 이용이 불가합니다";
 
     @Id
     @Column(name = "user_id")
@@ -68,21 +65,18 @@ public class Member {
     }
 
     public String convertRole() {
-        if (role.equals(Role.USER)) {
-            return "ROLE_USER";
-        }
-        return "ROLE_ADMIN";
+        return String.format("ROLE_%s", role.name().toUpperCase());
     }
 
     public void checkVerified() {
         if (!verified) {
-            throw new UnauthorizedAccessException(VERIFIED_MESSAGE);
+            throw new UnauthorizedAccessException("인증이 안된 회원입니다. 다시 가입해주시길 바랍니다");
         }
     }
 
     public void checkSuspendTime() {
         if (suspendedAt.isAfter(LocalDateTime.now())) {
-            throw new SuspendedMemberException(EXCEPTION_MESSAGE);
+            throw new SuspendedMemberException("정지된 회원입니다. 이용이 불가합니다.");
         }
     }
 
@@ -100,7 +94,7 @@ public class Member {
 
     public void checkDeleteUser() {
         if (status.equals(UserStatus.DELETE)) {
-            throw new DeleteMemberException(DELETE_USER_MESSAGE);
+            throw new DeleteMemberException("운영자로부터 삭제된 회원입니다. 이용이 불가합니다");
         }
     }
 

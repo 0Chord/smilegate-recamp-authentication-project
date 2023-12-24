@@ -26,6 +26,7 @@ public class UserAspect {
         String methodName = joinPoint.getSignature().getName();
         String url = request.getRequestURL().toString();
         String ip = request.getRemoteAddr();
+
         try {
             String bearerToken = request.getHeader("Authorization");
             jwtUtils.validationUser(bearerToken);

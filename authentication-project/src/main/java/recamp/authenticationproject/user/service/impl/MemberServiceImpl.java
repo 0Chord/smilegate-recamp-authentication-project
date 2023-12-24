@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
-import recamp.authenticationproject.global.dto.ImageDto;
 import recamp.authenticationproject.global.dto.MemberDto;
 import recamp.authenticationproject.global.dto.PasswordDto;
 import recamp.authenticationproject.global.exception.NotFoundUserException;
@@ -80,10 +79,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateImage(ImageDto imageDto) {
-        Long userId = imageDto.getUserId();
+    public void updateImage(Long userId, MultipartFile image) {
         Member member = memberRepository.findById(userId).orElseThrow(NotFoundUserException::new);
-        String imageUrl = imageService.convertImage(imageDto.getImage());
+        String imageUrl = imageService.convertImage(image);
         member.updateImage(url + imageUrl);
     }
 

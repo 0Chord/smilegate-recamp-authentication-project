@@ -19,9 +19,9 @@ public class PrivateInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("PrivateInterceptor.preHandle");
-        System.out.println(request.getRequestURL() + "-" + request.getRemoteAddr());
-        System.out.println("====================");
+        log.info("PrivateInterceptor.preHandle");
+        log.info(request.getRequestURL() + "-" + request.getRemoteAddr());
+        log.info("====================");
         String url = request.getRequestURL().toString();
         String bearerToken = request.getHeader("Authorization");
         try {
@@ -30,8 +30,6 @@ public class PrivateInterceptor implements HandlerInterceptor {
                     HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             String pathUserId = pathVariables.get("userId").toString();
             if (!pathUserId.equals(userId)) {
-                System.out.println("pathUserId = " + pathUserId);
-                System.out.println("userId = " + userId);
                 throw new UnauthorizedAccessException();
             }
         } catch (Exception e) {

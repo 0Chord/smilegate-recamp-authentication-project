@@ -32,5 +32,5 @@ public interface MemberService {
 
     @Transactional
     @AuthorizeUser
-    void updateImage(@Valid ImageDto imageDto);
+    void updateImage(Long userId, MultipartFile image);
 }

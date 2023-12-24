@@ -1,9 +1,9 @@
 package recamp.authenticationproject.user.controller;
 
-import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,13 +19,11 @@ import recamp.authenticationproject.user.service.MemberService;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 public class MemberController {
-private final MemberService memberService;
+    private final MemberService memberService;
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestPart(value = "memberDto") @Validated MemberDto memberDto,
-                                       @RequestPart(name = "image", required = false)
-                                       MultipartFile image) {
-        System.out.println("memberDto = " + memberDto);
+                                       @RequestPart(name = "image", required = false) MultipartFile image) {
         memberService.save(memberDto, image);
         return ResponseEntity.ok().body("SUCCESS");
     }
@@ -34,6 +32,13 @@ private final MemberService memberService;
     public ResponseEntity<?> change(@PathVariable("userId") Long userId,
                                     @RequestBody @Validated PasswordDto passwordDto) {
         memberService.updatePassword(userId, passwordDto);
+        return ResponseEntity.ok().body("SUCCESS");
+    }
+
+    @PatchMapping("/{userId}/change/profile-image")
+    public ResponseEntity<?> update(@PathVariable("userId") Long userId,
+                                    @RequestPart(name = "image") MultipartFile image) {
+        memberService.updateImage(userId, image);
         return ResponseEntity.ok().body("SUCCESS");
     }
 }
