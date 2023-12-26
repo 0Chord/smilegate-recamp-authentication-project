@@ -26,7 +26,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/**",
                         "/api/v1/admin/**", "/error", "/api/v1/error");
         registry.addInterceptor(new PrivateInterceptor(jwtUtils))
-                .addPathPatterns("/api/v1/user/{userId}/change/**")
+                .addPathPatterns("/api/v1/user/{userId}/**")
                 .excludePathPatterns("/api/v1/verified/**", "/api/v1/message/**", "/api/v1/user/join",
                         "/api/v1/admin/**", "/error", "/api/v1/error");
     }
