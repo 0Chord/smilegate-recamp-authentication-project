@@ -33,11 +33,12 @@ public class LoginServiceImpl implements LoginService {
         member.checkDeleteUser();
         comparePassword(loginDto, member);
         JwtDto jwtDto = JwtDto.make(member.getId(), member.convertRole());
+        String userId = Long.toString(member.getId());
         String accessToken = jwtUtils.issueAccessToken(jwtDto);
         String refreshToken = jwtUtils.issueRefreshToken(jwtDto);
         member.updateLastedAccessAt();
         makeRefreshToken(member, refreshToken);
-        return List.of(accessToken, refreshToken);
+        return List.of(accessToken, refreshToken,userId);
     }
 
     private void makeRefreshToken(Member member, String refreshToken) {

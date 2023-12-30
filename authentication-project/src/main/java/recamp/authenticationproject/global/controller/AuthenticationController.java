@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,6 +19,7 @@ import recamp.authenticationproject.global.service.LoginService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/verified")
+@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 public class AuthenticationController {
     private final IdentityVerificationService identityVerificationService;
     private final LoginService loginService;
@@ -36,6 +38,7 @@ public class AuthenticationController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("access-token", tokens.get(0));
         headers.add("refresh-token", tokens.get(1));
+        headers.add("user-id", tokens.get(2));
         return ResponseEntity.ok().headers(headers).body("SUCCESS");
     }
 

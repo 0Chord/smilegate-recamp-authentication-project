@@ -30,6 +30,7 @@ public class PrivateInterceptor implements HandlerInterceptor {
                     HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
             String pathUserId = pathVariables.get("userId").toString();
             if (!pathUserId.equals(userId)) {
+                log.info(pathUserId, userId);
                 throw new UnauthorizedAccessException();
             }
         } catch (Exception e) {

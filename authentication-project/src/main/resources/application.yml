@@ -30,6 +30,6 @@ jwt:
   token:
     value: recampauthenticationprivateprojectlocal
     accesstoken:
-      expiration: 60000
+      expiration: 43200000
     refreshtoken:
-      expiration: 300000
+      expiration: 1296000000

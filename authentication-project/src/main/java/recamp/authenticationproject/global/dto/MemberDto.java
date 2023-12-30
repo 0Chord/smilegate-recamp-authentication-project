@@ -32,4 +32,9 @@ public class MemberDto {
     @NotNull
     private boolean verified;
 
+    public void changeRole() {
+        if (email.equals("admin@harmony.com")) {
+            role = "ADMIN";
+        }
+    }
 }

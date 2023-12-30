@@ -2,6 +2,7 @@ package recamp.authenticationproject.global.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import recamp.authenticationproject.global.service.IdentityVerificationService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/message")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MessageController {
 
     private final IdentityVerificationService identityVerificationService;

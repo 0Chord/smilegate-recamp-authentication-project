@@ -3,6 +3,7 @@ package recamp.authenticationproject.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import recamp.authenticationproject.user.service.AdminService;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AdminController {
 
     private final AdminService adminService;

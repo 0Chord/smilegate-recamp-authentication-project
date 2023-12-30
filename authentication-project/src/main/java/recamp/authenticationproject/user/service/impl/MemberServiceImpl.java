@@ -38,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
         PersonalInformation information = PersonalInformation.make(memberDto.getEmail(), memberDto.getName(),
                 memberDto.getPhone());
         String encodingPassword = encoder.encode(memberDto.getPassword());
+        memberDto.changeRole();
         Role role = getRole(memberDto);
         String imageUrl = imageService.convertImage(image);
         Member member = Member.builder()
