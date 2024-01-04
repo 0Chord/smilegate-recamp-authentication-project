@@ -10,7 +10,7 @@
 - [x] FE는 React를 사용하여 구성
 - [x] 회원가입 시 회원 인증은 문자메시징 시스템을 활용하여 인증처리
 
-## ✏️ 사용 기술
+## ✏️ 기술 스택
 
 ---
 
@@ -20,9 +20,8 @@
 - [x] React
 - [x] Docker
 - [x] Jenkins
-- [x] SonarQube
-- [x] JMeter
 - [x] MySQL
+- [x] jsonwebtoken
 
 ## 🔎 프로젝트 요구 사항
 
@@ -80,10 +79,336 @@
     - [x] 비밀번호 변경
     - [x] 프로필 사진 변경
 
+## 🔎 아키텍처
+
+---
+![img.png](img.png)
+
+## 💾 디렉토리 구조
+
+---
+![img_4.png](img_4.png)
+
 ## 📖 DB Table
 
 ---
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
 
 ## 📝 API 명세서
 
 ---
+
+### 회원 가입
+#### 이메일 검증
+- URL :  `/api/v1/verified/duplication/email`
+- Method : `POST`
+- Request
+~~~json
+{
+	"email" : "example@example.com"
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+    "exception": "DuplicateEmailException",
+    "code": 10007,
+    "message": "중복된 회원 이메일입니다. 다른 이메일로 시도 부탁드립니다"
+}
+~~~
+#### 전화번호 검증 요청
+- URL :  `/api/v1/message/send`
+- Method : `POST`
+- Request
+~~~json
+{
+    "phone":"01012341234"
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+    "exception": "MessageException", 
+    "code": 10001, 
+    "message": "메세지 전송에 실패했습니다. 다시 시도해주시길 바랍니다"
+}
+~~~
+#### 전화번호 검증
+- URL :  `/api/v1/message/validated`
+- Method : `POST`
+- Request
+~~~json
+{
+    "number":"01012341234",
+    "code":"7z4msqu4"
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "IllegalCodeException",
+  "code": 10002,
+  "message": "인증번호가 다릅니다. 다시 시도해주시길 바랍니다"
+}
+{
+  "exception": "NoSuchElementException",
+  "code": 20001,
+  "message": "잘못된 시도입니다. 처음부터 다시 시도해주시길 바랍니다."
+}
+~~~
+#### 회원가입
+- URL :  `/api/v1/user/join`
+- Method : `POST`
+- Request
+~~~json
+{
+  form-data
+{
+{
+  "email":"example@example.com",
+  "name":"김두한",
+  "phone":"01012341234",
+  "password":"1q2w3e4r!",
+  "validationPassword":"1q2w3e4r!",
+  "role":"USER",
+  "verified":true
+}-application/json,
+image file
+}
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "IllegalInputException",
+  "code": 20002,
+  "message": "잘못된 입력입니다. 다시 입력해주시길 바랍니다."
+},
+{
+"exception": "IllegalPasswordException",
+"code": 10004,
+"message": "비밀번호가 일치하지 않습니다. 다시 시도 부탁드립니다"
+},
+{
+"exception": "ConstraintViolationException",
+"code": 10008,
+"message": "중복된 계정입니다. 다른 계정으로 다시 시도해주시길 바랍니다"
+}
+~~~
+### 로그인
+- URL :  `/api/v1/verified/login`
+- Method : `POST`
+- Request
+~~~json
+{
+  "email":"example@example.com",
+  "password":"1q2w3e4r!"
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "NoSuchElementException",
+  "code": 20001,
+  "message": "잘못된 시도입니다. 처음부터 다시 시도해주시길 바랍니다."
+},
+{
+  "exception": "IllegalInputException",
+  "code": 20002,
+  "message": "잘못된 입력입니다. 다시 입력해주시길 바랍니다."
+},
+{
+  "exception": "UnauthorizedAccessException",
+  "code": 10005,
+  "message": "인증이 안된 회원입니다. 다시 가입해주시길 바랍니다"
+},
+{
+  "exception": "DeleteMemberException",
+  "code": 10009,
+  "message": "운영자로부터 삭제된 회원입니다. 이용이 불가합니다"
+}
+~~~
+### 관리자
+#### 유저 목록 조회
+- URL :  `/api/v1/admin/find/user`
+- Method : `GET`
+- Request
+~~~json
+
+~~~
+- Response
+~~~java
+{"members":[
+        {
+        "userId":1,
+        "email":"example@example.com",
+        "name":"김두환",
+        "phone":"01012341234"
+        }
+        ]
+}
+~~~
+- Exception
+~~~json
+{
+  "exception": "UnauthorizedAccessException",
+  "code": 20004,
+  "message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+}
+~~~
+#### 유저 정지
+- URL :  `/api/v1/admin/suspend/user`
+- Method : `POST`
+- Request
+~~~json
+{
+  "userId": 1,
+  "day": 3
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+    "exception": "UnauthorizedAccessException",
+    "code": 20004,
+    "message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+}
+~~~
+#### 유저 삭제
+- URL :  `/api/v1/admin/delete/user`
+- Method : `POST`
+- Request
+~~~json
+{
+  "userId": 1
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "UnauthorizedAccessException",
+  "code": 20004,
+  "message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+},
+{
+"exception": "NoSuchElementException",
+"code": 20001,
+"message": "잘못된 시도입니다. 처음부터 다시 시도해주시길 바랍니다."
+}
+~~~
+### 유저
+#### 비밀번호 변경
+- URL :  `/api/v1/user/{userId}/change/password`
+- Method : `POST`
+- Request
+~~~json
+{
+  "password":"1q2w3e4r!"
+}
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "IllegalInputException",
+  "code": 20002,
+  "message": "잘못된 입력입니다. 다시 입력해주시길 바랍니다."
+},
+{
+"exception": "UnauthorizedAccessException",
+"code": 20004,
+"message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+}
+~~~
+#### 이미지 변경
+- URL :  `/api/v1/user/{userId}/change/profile-image`
+- Method : `PATCH`
+- Request
+~~~json
+form-data
+image - file
+~~~
+- Response
+~~~java
+"SUCCESS"
+~~~
+- Exception
+~~~json
+{
+  "exception": "IllegalInputException",
+  "code": 20002,
+  "message": "잘못된 입력입니다. 다시 입력해주시길 바랍니다."
+},
+{
+  "exception": "UnauthorizedAccessException",
+  "code": 20004,
+  "message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+}
+~~~
+#### 프로필 정보 조회
+- URL :  `/api/v1/user/{userId}/get-profile`
+- Method : `GET`
+- Request
+~~~json
+~~~
+- Response
+~~~java
+{
+        "email": "example@example.com",
+        "name": "임꺽정",
+        "phone": "01012341234",
+        "image": "https://example.storage.com/example/addr"
+}
+~~~
+- Exception
+~~~json
+{
+  "exception": "UnauthorizedAccessException",
+  "code": 20004,
+  "message": "인증에 실패했습니다. 재발급 받으시길 바랍니다."
+}
+~~~
+## 💾 실행 화면
+#### 이메일 중복 인증
+![img_5.png](img_5.png)
+#### 전화번호 인증
+![img_6.png](img_6.png)
+#### 사진 등록
+![img_7.png](img_7.png)
+#### 개인 프로필 화면
+![img_8.png](img_8.png)
+#### 관리자 화면
+![img_9.png](img_9.png)
